@@ -4,11 +4,31 @@ Execute dart code on boot completed.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+A bunch of extra things need to be done to use this plugin:
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+1.  In your dart code,
+    call boot_completed.setBootCompletedFunction(functionName)
+
+    **See main() in example/lib/main.dart**
+
+
+2.  On the android side,
+    register org.thebus.boot_completed.BootCompletedPlugin as a broadcast receiver
+
+    **See example/android/app/src/main/AndroidManifest.xml**
+
+
+3.  On the android side, your application needs to subclass FlutterApplication,
+    and implement PluginRegistry.PluginRegistrantCallback
+
+    org.thebus.boot_completed.BootCompletedPlugin.setPluginRegistrantCallback(this)
+    needs to be called,
+
+    and PluginRegistrantCallback.registerWith should call
+    GeneratedPluginRegistrant.registerWith()
+
+    **see example/android/app/src/main/kotlin/org/thebus/boot_completed_example/ExampleApplication.kt**
+
+    !!Don't forget to tell android to use your application subclass instead of FlutterApplication
+    !!by modifying your AndroidManifest.xml
+    !!**See the application section in example/android/app/src/main/AndroidManifest.xml**
