@@ -2,7 +2,7 @@
 
 revised readmes a bit more, added link to github repo in pubspec
 added dartdoc comment
-confirmed compatibility with path_provider 1.0.0, changed dependency to <2.0.0
+confirmed compatibility with path_provider 1.0.0, changed dependency to ">=0.5.0+1 <2.0.0"
 
 ## 0.1.0+2
 
