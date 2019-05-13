@@ -1,3 +1,7 @@
+## 0.1.0+1
+
+pub.dev analysis now finds the description is too long - shortened it
+
 ## 0.1.0
 
 Update version number and a few non-functional things suggested by pub.dev analysis.
