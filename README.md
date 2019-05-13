@@ -1,6 +1,6 @@
 # boot_completed
 
-Execute dart code on boot completed.
+Flutter plugin to execute dart code on boot completed.
 
 ## Getting Started
 
