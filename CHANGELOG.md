@@ -1,3 +1,7 @@
+## 0.1.0+2
+
+change http url to https
+
 ## 0.1.0+1
 
 pub.dev analysis now finds the description is too long - shortened it

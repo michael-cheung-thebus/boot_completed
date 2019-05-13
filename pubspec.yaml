@@ -4,9 +4,9 @@ description:
   Currently only lightly tested with Android (Kotlin).
   iOS will probably not be supported.
 
-version: 0.1.0+1
+version: 0.1.0+2
 author: Oahu Transit Services, Inc. <michael.cheung@thebus.org>
-homepage: http://www.thebus.org
+homepage: https://www.thebus.org
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
