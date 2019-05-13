@@ -9,6 +9,10 @@ const _USER_BOOT_FUNCTION_HANDLE_FILENAME = "org.thebus.boot_completed.userBootF
 Future<int> _getHandle(Function someFunction) async => PluginUtilities.getCallbackHandle(someFunction).toRawHandle();
 Future<int> _getUserBootCompletedHandle() async => int.parse(await _readPrivateFileAsString(_USER_BOOT_FUNCTION_HANDLE_FILENAME));
 
+///sets the dart function to be executed on boot completed
+///
+///once this is called once (i.e. by putting it in main() and launching the app once)
+///the function specified will be called on boot completed.
 Future<void> setBootCompletedFunction(Function functionToExecute) async{
   await _writeStringAsPrivateFile("${await _getHandle(functionToExecute)}", _USER_BOOT_FUNCTION_HANDLE_FILENAME);
 }

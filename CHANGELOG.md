@@ -1,6 +1,7 @@
 ## 0.1.0+3
 
 revised readmes a bit more, added link to github repo in pubspec
+added dartdoc comment
 
 ## 0.1.0+2
 
