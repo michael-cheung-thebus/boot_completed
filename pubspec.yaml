@@ -1,7 +1,12 @@
 name: boot_completed
-description: Execute dart code on boot completed.
-version: 0.0.1
-author: Oahu Transit Services, Inc.
+description:
+  Flutter plugin to execute dart code on boot completed.
+  Currently only lightly tested with Android (Kotlin).
+  iOS will probably not be supported, since AFAIK the only way to do something similar
+  is to add VoIP or something, which would be dishonest as well as terribly hacky.
+
+version: 0.1.0
+author: Oahu Transit Services, Inc. <michael.cheung@thebus.org>
 homepage: http://www.thebus.org
 
 environment:

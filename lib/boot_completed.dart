@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'dart:io';
 import 'dart:ui';
 
-final _USER_BOOT_FUNCTION_HANDLE_FILENAME = "org.thebus.boot_completed.userBootFunctionHandle";
+const _USER_BOOT_FUNCTION_HANDLE_FILENAME = "org.thebus.boot_completed.userBootFunctionHandle";
 
 Future<int> _getHandle(Function someFunction) async => PluginUtilities.getCallbackHandle(someFunction).toRawHandle();
 Future<int> _getUserBootCompletedHandle() async => int.parse(await _readPrivateFileAsString(_USER_BOOT_FUNCTION_HANDLE_FILENAME));
