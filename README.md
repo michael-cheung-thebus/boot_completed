@@ -4,6 +4,8 @@ Flutter plugin to execute dart code on boot completed.
 
 ## Getting Started
 
+See example source in repository.
+
 A bunch of extra things need to be done to use this plugin:
 
 1.  In your dart code,
@@ -27,8 +29,8 @@ A bunch of extra things need to be done to use this plugin:
     and PluginRegistrantCallback.registerWith should call
     GeneratedPluginRegistrant.registerWith()
 
-    **see example/android/app/src/main/kotlin/org/thebus/boot_completed_example/ExampleApplication.kt**
+    **See example/android/app/src/main/kotlin/org/thebus/boot_completed_example/ExampleApplication.kt**
 
-    !!Don't forget to tell android to use your application subclass instead of FlutterApplication
-    !!by modifying your AndroidManifest.xml
-    !!**See the application section in example/android/app/src/main/AndroidManifest.xml**
+    Don't forget to tell android to use your application subclass instead of FlutterApplication by modifying your AndroidManifest.xml
+
+    **See the application section in example/android/app/src/main/AndroidManifest.xml**

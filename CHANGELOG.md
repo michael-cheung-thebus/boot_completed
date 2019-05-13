@@ -1,3 +1,7 @@
+## 0.1.0+3
+
+revised readmes a bit more, added link to github repo in pubspec
+
 ## 0.1.0+2
 
 change http url to https
