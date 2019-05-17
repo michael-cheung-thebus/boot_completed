@@ -1,3 +1,10 @@
+## 0.1.1
+
+changed implementation of boot completed receiver
+back to the way that uses a method channel
+since it seems like hardcoding the dart function name
+only works in debug builds - with release builds, it's no longer functional
+
 ## 0.1.0+3
 
 revised readmes a bit more, added link to github repo in pubspec
