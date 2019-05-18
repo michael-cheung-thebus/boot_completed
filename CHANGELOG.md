@@ -1,3 +1,7 @@
+## 0.1.1+1
+
+ran flutter format on lib\boot_completed.dart
+
 ## 0.1.1
 
 changed implementation of boot completed receiver
