@@ -1,3 +1,15 @@
+## 0.2.0
+
+allow execution of the boot function to be put off
+by calling setDeferExecution(true)
+
+this may or may not be useful
+if for instance you have other boot receivers
+and you want to execute them in a certain order
+
+you will then have to call BootCompletedPlugin.handleBootCompleted yourself
+probably from within one of the other receivers' onReceive
+
 ## 0.1.1+1
 
 ran flutter format on lib\boot_completed.dart

@@ -24,10 +24,21 @@ class BootCompletedPlugin: BroadcastReceiver(), MethodChannel.MethodCallHandler{
       contextRef = SoftReference(p0!!)
     }
 
-    val dartEntryPoint = getDartEntryPoint()
+    if(!deferExecution){
+      handleBootCompleted(p0, p1)
+    }
+  }
 
-    if(dartEntryPoint != null) {
-      doDartCallback(p0!!.applicationContext, dartEntryPoint)
+  private fun handleBootCompleted(p0: Context?, p1: Intent?){
+
+    if(contextRef == null){
+      contextRef = SoftReference(p0!!)
+    }
+
+    val dep = dartEntryPoint
+
+    if(dep != null) {
+      doDartCallback(p0!!.applicationContext, dep)
     }
   }
 
@@ -86,7 +97,7 @@ class BootCompletedPlugin: BroadcastReceiver(), MethodChannel.MethodCallHandler{
         contextRef = SoftReference(registrar.context())
       }
 
-      val dartEntryPointChannelName = "org.thebus.boot_completed.SaveDartEntryPoint"
+      val dartEntryPointChannelName = "org.thebus.boot_completed.BootCompletedPlugin.MethodChannel"
       val dartEntryPointChannel = MethodChannel(registrar.messenger(),dartEntryPointChannelName,JSONMethodCodec.INSTANCE)
 
       val bcp = BootCompletedPlugin()
@@ -97,39 +108,69 @@ class BootCompletedPlugin: BroadcastReceiver(), MethodChannel.MethodCallHandler{
     private var contextRef: SoftReference<Context>? = null
     private fun getContext() = contextRef!!.get()!!
 
-    private const val SHARED_PREFERENCES_FILE_KEY = "org.thebus.boot_completed.BootCompletedPlugin"
-    private const val SHARED_PREFERENCES_ITEM_KEY = "org.thebus.boot_completed.BootCompletedPlugin"
+    private const val PREFS_FILE_NAME = "org.thebus.boot_completed.BootCompletedPlugin"
+    private const val PREFS_ITEM_KEY_ENTRY_POINT = "org.thebus.boot_completed.BootCompletedPlugin.EntryPoint"
+    private const val PREFS_ITEM_KEY_DEFER_EXECUTION = "org.thebus.boot_completed.BootCompletedPlugin.DeferExcecution"
 
-    private fun saveDartEntryPoint(entryPointHandle: Long) =
-      getContext()
-        .getSharedPreferences(SHARED_PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
-              .edit()
-              .putLong(SHARED_PREFERENCES_ITEM_KEY, entryPointHandle)
-              .apply()
+    private val myPrefs
+      get() = getContext().getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE)
 
-    private fun getDartEntryPoint(): Long?{
+    private var dartEntryPoint: Long?
+      get() {
 
-      val defaultValue: Long = -1
+        val defaultValue: Long = -1
 
-      var entryPoint: Long? =(
-        try {
-          getContext().getSharedPreferences(SHARED_PREFERENCES_FILE_KEY, Context.MODE_PRIVATE).getLong(SHARED_PREFERENCES_ITEM_KEY, defaultValue)
-        }catch(cce: ClassCastException){
-          defaultValue
+        var entryPoint: Long? =(
+          try {
+            myPrefs.getLong(PREFS_ITEM_KEY_ENTRY_POINT, defaultValue)
+          }catch(cce: ClassCastException){
+            defaultValue
+          }
+        )
+
+        if(entryPoint == defaultValue){
+          entryPoint = null
         }
-      )
 
-      if(entryPoint == defaultValue){
-        entryPoint = null
+        return entryPoint
+      }
+      set(value){
+        if(value != null) {
+          myPrefs.edit().putLong(PREFS_ITEM_KEY_ENTRY_POINT, value).apply()
+        }
       }
 
-      return entryPoint
+    private var deferExecution: Boolean
+      get(){
+
+        val defaultValue = false
+
+        return(
+          try{
+            myPrefs.getBoolean(PREFS_ITEM_KEY_DEFER_EXECUTION, defaultValue)
+          }catch(cce: ClassCastException){
+            defaultValue
+          }
+        )
+      }
+      set(value) = myPrefs.edit().putBoolean(PREFS_ITEM_KEY_DEFER_EXECUTION, value).apply()
+
+    /**
+     * expects the same context/intent as BOOT_COMPLETED broadcast would give to onReceive
+    **/
+    fun handleBootCompleted(p0: Context?, p1: Intent?){
+      val bcp = BootCompletedPlugin()
+      bcp.handleBootCompleted(p0, p1)
     }
+
   }
 
   override fun onMethodCall(p0: MethodCall?, p1: MethodChannel.Result?) {
     if(p0?.method == "SaveDartEntryPoint"){
-      saveDartEntryPoint((p0.arguments as JSONArray).getLong(0))
+      dartEntryPoint = (p0.arguments as JSONArray).getLong(0)
+      p1?.success(true)
+    }else if (p0?.method == "DeferExcecution") {
+      deferExecution = (p0.arguments as JSONArray).getBoolean(0)
       p1?.success(true)
     }
   }
