@@ -1,3 +1,8 @@
+## 0.2.1
+
+add missing check in boot completed plugin
+to make sure the received intent is for boot completed
+
 ## 0.2.0
 
 allow execution of the boot function to be put off

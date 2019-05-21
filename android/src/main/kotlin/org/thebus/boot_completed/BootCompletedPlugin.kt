@@ -20,13 +20,15 @@ class BootCompletedPlugin: BroadcastReceiver(), MethodChannel.MethodCallHandler{
 
   override fun onReceive(p0: Context?, p1: Intent?) {
 
-    if(contextRef == null){
-      contextRef = SoftReference(p0!!)
-    }
+      if(p1?.action == Intent.ACTION_BOOT_COMPLETED) {
+        if (contextRef == null) {
+          contextRef = SoftReference(p0!!)
+        }
 
-    if(!deferExecution){
-      handleBootCompleted(p0, p1)
-    }
+        if (!deferExecution) {
+          handleBootCompleted(p0, p1)
+        }
+      }
   }
 
   private fun handleBootCompleted(p0: Context?, p1: Intent?){
