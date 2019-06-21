@@ -1,3 +1,7 @@
+## 0.2.1+1
+
+flutter format
+
 ## 0.2.1
 
 add missing check in boot completed plugin

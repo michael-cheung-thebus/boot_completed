@@ -68,13 +68,14 @@ Future<String> _readPrivateFileAsString(String fileName) async {
   return await File((await _getPrivateDocsPath()) + fileName).readAsString();
 }
 
-MethodChannel _pluginMethodChannel() =>
-    MethodChannel('org.thebus.boot_completed.BootCompletedPlugin.MethodChannel', JSONMethodCodec());
+MethodChannel _pluginMethodChannel() => MethodChannel(
+    'org.thebus.boot_completed.BootCompletedPlugin.MethodChannel',
+    JSONMethodCodec());
 
 //invoke android method to save entry point handle
 Future<bool> _saveDartEntryPointToAndroid() async =>
-  await _pluginMethodChannel().invokeMethod<bool>(
-      'SaveDartEntryPoint', <dynamic>[await _getPluginBootCompletedHandle()]);
+    await _pluginMethodChannel().invokeMethod<bool>(
+        'SaveDartEntryPoint', <dynamic>[await _getPluginBootCompletedHandle()]);
 
 ///If true, will disable automatic execution on boot of the function
 ///set by setBootCompletedFunction
@@ -84,5 +85,5 @@ Future<bool> _saveDartEntryPointToAndroid() async =>
 ///mainly useful if you have other boot receivers
 ///and want to execute them in a particular order
 Future<bool> setDeferExecution(bool deferExecution) async =>
-    await _pluginMethodChannel().invokeMethod<bool>(
-        'DeferExcecution', <dynamic>[deferExecution]);
+    await _pluginMethodChannel()
+        .invokeMethod<bool>('DeferExcecution', <dynamic>[deferExecution]);
