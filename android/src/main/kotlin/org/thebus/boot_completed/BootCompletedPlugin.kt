@@ -167,13 +167,13 @@ class BootCompletedPlugin: BroadcastReceiver(), MethodChannel.MethodCallHandler{
 
   }
 
-  override fun onMethodCall(p0: MethodCall?, p1: MethodChannel.Result?) {
-    if(p0?.method == "SaveDartEntryPoint"){
+  override fun onMethodCall(p0: MethodCall, p1: MethodChannel.Result) {
+    if(p0.method == "SaveDartEntryPoint"){
       dartEntryPoint = (p0.arguments as JSONArray).getLong(0)
-      p1?.success(true)
-    }else if (p0?.method == "DeferExcecution") {
+      p1.success(true)
+    }else if (p0.method == "DeferExcecution") {
       deferExecution = (p0.arguments as JSONArray).getBoolean(0)
-      p1?.success(true)
+      p1.success(true)
     }
   }
 }

@@ -1,3 +1,7 @@
+## 1.0.0
+
+flutter v1.7.8+hotfix.2, MethodCallHandler.onMethodCall suddenly has nonnull params
+
 ## 0.2.1+1
 
 flutter format
