@@ -1,3 +1,7 @@
+## 1.1.0
+
+Updated Kotlin to v1.3.50, Gradle to v3.5.3
+
 ## 1.0.0
 
 flutter v1.7.8+hotfix.2, MethodCallHandler.onMethodCall suddenly has nonnull params
