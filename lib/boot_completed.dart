@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'dart:io';
@@ -32,6 +33,9 @@ Future<void> setBootCompletedFunction(Function functionToExecute) async {
 
 //this function is called by the android side
 Future<void> _executeOnBootCompleted() async {
+  // Ensure the application is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  
   //this handle should have been set by the application that's using this plugin
   //by calling setBootCompletedFunction
   final userBootCompletedHandle = await _getUserBootCompletedHandle();
