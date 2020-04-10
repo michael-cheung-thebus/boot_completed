@@ -9,3 +9,4 @@ build/
 
 *.lock
 example/ios/
+example/.flutter-plugins-dependencies
